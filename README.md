@@ -5,6 +5,11 @@ Scala Slick PostgreSQL Timestamp Demo
 Demo program for helping to understand working with PostgreSQL
 `timestamp without time zone` and `timestamp with time zone` data types.
 
+
+-----
+Setup
+-----
+
 Create a database called `tztest`:
 
     CREATE DATABASE tztest;
@@ -32,6 +37,32 @@ Also this query is useful to understand how the timestamps are stored:
             extract(epoch from timestamptz))/3600 as "Offset",
            description as "Client Wall Clock Time"
         FROM tztest ORDER BY id;
+
+
+-------------
+Build and Run
+-------------
+
+Build the jar file:
+
+    sbt assembly
+
+Run it:
+
+    java -jar target/scala-2.11/timestamp_demo-assembly-0.2.jar
+
+
+---------------------
+Command Line Switches
+---------------------
+
+`--insert`
+
+Insert two new rows into the `tztest` table. One row features timestamps
+from `java.util.Calendar` library while the other row features timestamps from
+the newer `java.time` library. The switch is boolean:
+
+    --insert
 
 
 ----------
