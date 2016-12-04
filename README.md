@@ -10,7 +10,16 @@ Demo program for helping to understand working with PostgreSQL
 Setup
 -----
 
-Create a database called `tztest`:
+
+Create a user from your `bash` shell, not your DB shell:
+
+    $ createuser -U postgres -P -s -e dev
+
+Assign the password `password` unless you also change the one in
+`application.conf`. Note that the last password requested is for the `postgres`
+user, not the `dev` user.
+
+Create a database called `tztest` and grant privileges:
 
     CREATE DATABASE tztest;
     GRANT ALL PRIVILEGES ON database tztest TO dev;
