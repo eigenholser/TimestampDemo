@@ -92,11 +92,19 @@ object Main extends App {
   // Print headings.
   val headings = Seq("id", "timestamp", "timestamptz", "description")
 
-  dividerOutput(headings, widths)
-  print("|")
-  headings map {label => print(s""" ${labels(label).padTo(widths(label) + 1, ' ')}|""")}
-  println()
-  dividerOutput(headings, widths)
+  buf.length match {
+    case 0 => println("*** There are no results to display.")
+    case 1 => println("*** There is 1 result to display.")
+    case n => println(s"*** There are $n results to display.")
+  }
+
+  if (buf.length > 0) {
+    dividerOutput(headings, widths)
+    print("|")
+    headings map {label => print(s""" ${labels(label).padTo(widths(label) + 1, ' ')}|""")}
+    println()
+    dividerOutput(headings, widths)
+  }
 
   // Print table.
   buf map {
@@ -108,7 +116,8 @@ object Main extends App {
     }
   }
 
-  dividerOutput(headings, widths)
+  if (buf.length > 0)
+    dividerOutput(headings, widths)
 
   /** Print heading divider to console.
    *
