@@ -5,6 +5,25 @@ Scala Slick PostgreSQL Timestamp Demo
 Demo program for helping to understand working with PostgreSQL
 `timestamp without time zone` and `timestamp with time zone` data types.
 
+Here is an example of the output:
+
+    +-----+-----------------------------------------------+-----------------------------------------------+--------------------------------------------------------------------+
+    | Id  | Timestamp Without Time Zone                   | Timestamp With Time Zone                      | Wall Clock Time On Insert                                          |
+    +-----+-----------------------------------------------+-----------------------------------------------+--------------------------------------------------------------------+
+    | 170 | 2016-12-04T16:23:47.407-07:00[America/Denver] | 2016-12-04T16:23:47.407-07:00[America/Denver] | 2016-12-04-16:23:47 Mountain Standard Time (America/Denver)        |
+    | 171 | 2016-12-04T16:23:47.411-07:00[America/Denver] | 2016-12-04T16:23:47.411-07:00[America/Denver] | 2016-12-04-16:23:47 Mountain Standard Time (America/Denver)        |
+    | 172 | 2016-12-05T02:24:21.885-07:00[America/Denver] | 2016-12-04T16:24:21.885-07:00[America/Denver] | 2016-12-05-02:24:21 Eastern African Time (Africa/Addis_Ababa)      |
+    | 173 | 2016-12-05T02:24:21.889-07:00[America/Denver] | 2016-12-04T16:24:21.889-07:00[America/Denver] | 2016-12-05-02:24:21 Eastern African Time (Africa/Addis_Ababa)      |
+    | 174 | 2016-12-05T11:24:34.792-07:00[America/Denver] | 2016-12-04T16:24:34.792-07:00[America/Denver] | 2016-12-05-11:24:34 Petropavlovsk-Kamchatski Time (Asia/Kamchatka) |
+    | 175 | 2016-12-05T11:24:34.795-07:00[America/Denver] | 2016-12-04T16:24:34.795-07:00[America/Denver] | 2016-12-05-11:24:34 Petropavlovsk-Kamchatski Time (Asia/Kamchatka) |
+    | 176 | 2016-12-05T00:24:43.122-07:00[America/Denver] | 2016-12-04T16:24:43.122-07:00[America/Denver] | 2016-12-05-00:24:43 Western African Time (Africa/Ndjamena)         |
+    | 177 | 2016-12-05T00:24:43.126-07:00[America/Denver] | 2016-12-04T16:24:43.126-07:00[America/Denver] | 2016-12-05-00:24:43 Western African Time (Africa/Ndjamena)         |
+    | 178 | 2016-12-04T15:24:53.943-07:00[America/Denver] | 2016-12-04T16:24:53.943-07:00[America/Denver] | 2016-12-04-15:24:53 Pacific Standard Time (America/Los_Angeles)    |
+    | 179 | 2016-12-04T15:24:53.946-07:00[America/Denver] | 2016-12-04T16:24:53.946-07:00[America/Denver] | 2016-12-04-15:24:53 Pacific Standard Time (America/Los_Angeles)    |
+    | 180 | 2016-12-04T23:25:40.489-07:00[America/Denver] | 2016-12-04T16:25:40.489-07:00[America/Denver] | 2016-12-04-23:25:40 Greenwich Mean Time (Europe/London)            |
+    | 181 | 2016-12-04T23:25:40.492-07:00[America/Denver] | 2016-12-04T16:25:40.492-07:00[America/Denver] | 2016-12-04-23:25:40 Greenwich Mean Time (Europe/London)            |
+    +-----+-----------------------------------------------+-----------------------------------------------+--------------------------------------------------------------------+
+
 
 -----
 Setup
