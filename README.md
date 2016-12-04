@@ -49,7 +49,7 @@ Build the jar file:
 
 Run it:
 
-    java -jar target/scala-2.11/timestamp_demo-assembly-0.2.jar
+    java -jar target/scala-2.11/timestamp_demo-assembly-0.2.0.jar
 
 
 ---------------------
