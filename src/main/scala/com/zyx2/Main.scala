@@ -1,17 +1,12 @@
 package com.zyx2.tztest
 
-import java.io.File
 import java.text.SimpleDateFormat
-import scala.math.BigDecimal
 import java.sql.Timestamp
-import scala.util.{Try, Success, Failure}
-import java.util.NoSuchElementException
 import java.util.Calendar
 import java.time._
 import slick.driver.PostgresDriver.api._
 import scala.concurrent.{Await, Future}
 import scala.concurrent.duration.Duration
-import scala.concurrent.ExecutionContext.Implicits.global
 
 
 /** Program entrypoint */
