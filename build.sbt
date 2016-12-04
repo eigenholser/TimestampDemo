@@ -1,4 +1,4 @@
-name := "tztest"
+name := "timestamp_demo"
 
 version := "0.1"
 

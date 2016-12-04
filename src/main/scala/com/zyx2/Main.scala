@@ -1,4 +1,4 @@
-package com.zyx2.tztest
+package com.zyx2.timestamp_demo
 
 import java.text.SimpleDateFormat
 import java.sql.Timestamp
