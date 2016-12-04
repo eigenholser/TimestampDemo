@@ -11,6 +11,7 @@ import scala.concurrent.duration.Duration
 
 /** Program entrypoint */
 object Main extends App {
+  val logger = org.slf4j.LoggerFactory.getLogger(getClass)
   val df = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss zzzz")
   val tzIdDefault = ZoneId.systemDefault
   val tzIdUsPacific = ZoneId.of("US/Pacific")
@@ -18,12 +19,17 @@ object Main extends App {
   val tzIdAmericaNewYork = ZoneId.of("America/New_York")
   val tzIdAsiaSeoul = ZoneId.of("Asia/Seoul")
 
-  // Insert two different rows using old and new.
+  logger.info(s"""Current Time Zone is '$tzIdDefault'""")
+
+  // Insert two different rows using old and new libs.
   Seq(
     rowUsingCalendar,
     rowUsingJavaTime
   ) map {
-    row => TzTestDAO.create(row)
+    row => {
+      logger.info(s"Inserting row: $row")
+      TzTestDAO.create(row)
+    }
   }
 
   // Fetch all rows and output to console.
