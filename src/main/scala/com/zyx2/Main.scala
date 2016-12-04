@@ -8,29 +8,48 @@ import slick.driver.PostgresDriver.api._
 import scala.concurrent.{Await, Future}
 import scala.concurrent.duration.Duration
 
+case class CommandLineOption(
+  insert: Boolean = false
+)
 
 /** Program entrypoint */
 object Main extends App {
   val logger = org.slf4j.LoggerFactory.getLogger(getClass)
   val df = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss zzzz")
+
+  var insert: Boolean = false
+
+  val parser = new scopt.OptionParser[CommandLineOption]("Main") {
+    opt[Unit]('i', "insert") optional() action { (_, c) =>
+      c.copy(insert = true) } text("Insert 2 new rows into tztest table.")
+  }
+
+  parser.parse(args, CommandLineOption()) match {
+    case Some(opt) =>
+      insert = opt.insert
+    case None => ???
+  }
+
   val tzIdDefault = ZoneId.systemDefault
   val tzIdUsPacific = ZoneId.of("US/Pacific")
   val tzIdAmericaDenver = ZoneId.of("America/Denver")
   val tzIdAmericaNewYork = ZoneId.of("America/New_York")
   val tzIdAsiaSeoul = ZoneId.of("Asia/Seoul")
 
+
   logger.info(s"""Current Time Zone is '$tzIdDefault'""")
 
   // Insert two different rows using old and new libs.
-  Seq(
-    rowUsingCalendar,
-    rowUsingJavaTime
-  ) map {
-    row => {
-      logger.info(s"Inserting row: $row")
-      TzTestDAO.create(row)
+  if (insert)
+    Seq(
+      rowUsingCalendar,
+      rowUsingJavaTime
+    ) map {
+      row => {
+        logger.info(s"Inserting row: $row")
+        TzTestDAO.create(row)
+      }
     }
-  }
 
   // Fetch all rows and output to console.
   val buf = scala.collection.mutable.ListBuffer.empty[Seq[String]]

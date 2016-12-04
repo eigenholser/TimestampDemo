@@ -1,11 +1,12 @@
 name := "timestamp_demo"
 
-version := "0.1"
+version := "0.2.0"
 
 scalaVersion := "2.11.8"
 
 libraryDependencies ++= Seq(
   "com.typesafe.slick" %% "slick" % "3.0.0",
+  "com.github.scopt" %% "scopt" % "3.5.0",
   "com.zaxxer" % "HikariCP-java6" % "2.3.2",
   "org.postgresql" % "postgresql" % "9.4-1201-jdbc41",
   "ch.qos.logback" % "logback-classic" % "1.1.3",
