@@ -72,21 +72,37 @@ object Main extends App {
 
   // Print headings.
   val headings = Seq("id", "timestamp", "timestamptz", "description")
+
+  dividerOutput(headings, widths)
+  print("|")
   headings map {label => print(s""" ${labels(label).padTo(widths(label) + 1, ' ')}|""")}
   println()
-  headings map {label => print(s"""${"".padTo(widths(label) + 2, '-')}+""")}
-  println()
+  dividerOutput(headings, widths)
 
   // Print table.
   buf map {
     row => {
-      print(s" ${row(0).padTo(widths("id"), ' ')} |")
+      print(s"| ${row(0).padTo(widths("id"), ' ')} |")
       print(s" ${row(1).toString.padTo(widths("timestamp"), ' ')} |")
       print(s" ${row(2).toString.padTo(widths("timestamptz"), ' ')} |")
       println(s" ${row(3).padTo(widths("description") + 1, ' ')}|")
     }
   }
 
+  dividerOutput(headings, widths)
+
+  /** Print heading divider to console.
+   *
+   *  @param Seq[String] Headings keys.
+   *  @param mutable.HashMap[String, Int] Heading key/width map.
+   *  @return Unit
+   */
+  def dividerOutput(headings: Seq[String],
+    widths: scala.collection.mutable.HashMap[String,Int]): Unit = {
+    print("+")
+    headings map {label => print(s"""${"".padTo(widths(label) + 2, '-')}+""")}
+    println()
+  }
 
   /** Create row using java.util.Calendar */
   def rowUsingCalendar: TzTestRow = {
