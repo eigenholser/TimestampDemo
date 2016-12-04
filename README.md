@@ -24,6 +24,14 @@ You may play with time zone settings:
     SHOW TIME ZONE;
     SET TIME ZONE 'Japan';
 
+Also this query is useful to understand how the timestamps are stored:
+
+    SELECT id, extract(epoch from timestamp) as "Time",
+           extract(epoch from timestamptz) as "Time TZ",
+           (extract(epoch from timestamp) -
+            extract(epoch from timestamptz))/3600 as "Offset",
+           description as "Client Wall Clock Time"
+        FROM tztest ORDER BY id;
 
 
 ----------
