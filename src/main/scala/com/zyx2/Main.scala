@@ -23,7 +23,7 @@ object Main extends App {
   val tzIdAmericaNewYork = ZoneId.of("America/New_York")
   val tzIdAsiaSeoul = ZoneId.of("Asia/Seoul")
 
-  // Grab two different rows using old and new.
+  // Insert two different rows using old and new.
   Seq(
     rowUsingCalendar,
     rowUsingJavaTime
@@ -32,19 +32,60 @@ object Main extends App {
   }
 
   // Fetch all rows and output to console.
+  val buf = scala.collection.mutable.ListBuffer.empty[Seq[String]]
+  val labels = scala.collection.mutable.HashMap.empty[String, String]
+  val widths = scala.collection.mutable.HashMap.empty[String, Int]
+
+  labels += ("id" -> "Id")
+  labels += ("timestamp" -> "Timestamp Without Time Zone")
+  labels += ("timestamptz" -> "Timestamp With Time Zone")
+  labels += ("description" -> "Wall Clock Time On Insert")
+
+  widths += ("id" -> labels("id").length)
+  widths += ("timestamp" -> labels("timestamp").toString.length)
+  widths += ("timestamptz" -> labels("timestamptz").toString.length)
+  widths += ("description" -> labels("description").length)
+
   Await.result(TzTestDAO.getAllRows, Duration.Inf) map {
     row => {
-      val id: String = f"${row.id.get}%03d"
-      val timestamp =  ZonedDateTime.ofInstant(row.timestamp.toInstant, tzIdDefault)
-      val timestamptz = ZonedDateTime.ofInstant(row.timestamptz.toInstant, tzIdDefault)
+      val id: String = s"${row.id.get}"
+      val timestamp =  ZonedDateTime.ofInstant(row.timestamp.toInstant, tzIdDefault).toString
+      val timestamptz = ZonedDateTime.ofInstant(row.timestamptz.toInstant, tzIdDefault).toString
       val description: String = row.description
 
-      print(f"$id%-10s")
-      print(f"${timestamp.toString}%-60s")
-      print(f"${timestamptz.toString}%-60s")
-      println(description)
+      if (widths("id") < id.length)
+        widths("id") = id.length
+
+      if (widths("timestamp") < timestamp.length)
+        widths("timestamp") = timestamp.length
+
+      if (widths("timestamptz") < timestamptz.length)
+        widths("timestamptz") = timestamptz.length
+
+      if (widths("description") < description.length)
+        widths("description") = description.length
+
+      buf += Seq(id, timestamp, timestamptz, description)
     }
   }
+
+  // Print headings.
+  val headings = Seq("id", "timestamp", "timestamptz", "description")
+  headings map {label => print(s""" ${labels(label).padTo(widths(label) + 1, ' ')}|""")}
+  println()
+  headings map {label => print(s"""${"".padTo(widths(label) + 2, '-')}+""")}
+  println()
+
+  // Print table.
+  buf map {
+    row => {
+      print(s" ${row(0).padTo(widths("id"), ' ')} |")
+      print(s" ${row(1).toString.padTo(widths("timestamp"), ' ')} |")
+      print(s" ${row(2).toString.padTo(widths("timestamptz"), ' ')} |")
+      println(s" ${row(3).padTo(widths("description") + 1, ' ')}|")
+    }
+  }
+
 
   /** Create row using java.util.Calendar */
   def rowUsingCalendar: TzTestRow = {
@@ -88,7 +129,7 @@ object TzTestDAO  {
    *  @return Future[Seq[TzTestRow]] all rows.
    */
   def getAllRows: Future[Seq[TzTestRow]] = {
-    val q = TzTest
+    val q = TzTest.sortBy(_.id)
     val action = q.result
     val result: Future[Seq[TzTestRow]] = db.run(action)
     result
