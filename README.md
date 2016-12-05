@@ -100,6 +100,7 @@ References
 * [Timestamps and Time Zones in PostgreSQL][]
 * [8.5.3. Time Zones][]
 * [Get date in current timezone in java][]
+* [PostgreSQL 9.2 JDBC driver uses client time zone?][]
 * [Difference between timestamps with/without time zone in PostgreSQL][]
 * [How to get a java.time object from a java.sql.Timestamp][]
 * [Get `Instant` from `ZonedDateTime` in java.time][]
@@ -111,6 +112,7 @@ References
 [8.5.3. Time Zones]: https://www.postgresql.org/docs/9.1/static/datatype-datetime.html#DATATYPE-TIMEZONES
 [Difference between timestamps with/without time zone in PostgreSQL]: http://stackoverflow.com/a/5876276
 [Get date in current timezone in java]: http://stackoverflow.com/a/24808474
+[PostgreSQL 9.2 JDBC driver uses client time zone?]: http://stackoverflow.com/a/18449597
 [How to get a java.time object from a java.sql.Timestamp]: http://stackoverflow.com/a/22470650
 [Get `Instant` from `ZonedDateTime` in java.time]: http://stackoverflow.com/a/31936813
 [Current Unix Timestamp UTC]: http://www.unixtimestamp.com/
