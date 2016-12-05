@@ -106,6 +106,7 @@ References
 * [Get `Instant` from `ZonedDateTime` in java.time][]
 * [Current Unix Timestamp UTC][]
 * [Scala UTC timestamp in seconds since January 1st, 1970][]
+* [Database handling for TimeZones][]
 
 
 [Timestamps and Time Zones in PostgreSQL]: http://phili.pe/posts/timestamps-and-time-zones-in-postgresql/
@@ -117,3 +118,4 @@ References
 [Get `Instant` from `ZonedDateTime` in java.time]: http://stackoverflow.com/a/31936813
 [Current Unix Timestamp UTC]: http://www.unixtimestamp.com/
 [Scala UTC timestamp in seconds since January 1st, 1970]: http://stackoverflow.com/a/11352208
+[Database handling for TimeZones]: http://brian.pontarelli.com/2011/08/16/database-handling-for-timezones/
